@@ -1,0 +1,20 @@
+.none{
+    background-color: none !important;
+    background: none !important;
+}
+.primary{
+    background-color: #5843BE !important;
+    background: #5843BE !important;
+}
+.secondary{
+    background-color: #FF9376 !important;
+    background: #FF9376 !important;
+}
+.danger{
+    background-color: #FF5B5B !important;   
+    background: #FF5B5B !important;
+}
+/* Font Size */
+.title-font-size{
+    font-size: medium;
+}
