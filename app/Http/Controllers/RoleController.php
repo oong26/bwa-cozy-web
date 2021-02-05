@@ -15,10 +15,28 @@ class RoleController extends Controller
         $this->param['title'] = 'Role';
     }
 
-    public function index()
+    public function index(Request $req)
     {
-        $role = Role::select('id', 'role')->paginate(5);
-        return view('master.role.index',['role'=>$role], $this->param);
+        try{
+            if(!empty($req->get('s'))){ // if search is not null
+                // Search data
+                $this->param['role'] = Role::where('role','LIKE', '%'.$req->get('s').'%')->paginate(5);
+            }
+            else{// if search is null 
+                $this->param['role'] = Role::select('id', 'role')->paginate(5);
+            }
+        }
+        catch(Exception $e){
+            alert()->error($e->getMessage(), 'Error');
+            return redirect()->back();
+        }
+        catch(\Illuminate\Database\QueryException $e){
+            alert()->error($e->getMessage(), 'Database Error');
+            return redirect()->back();
+        }
+        finally{
+            return view('master.role.index', $this->param);
+        }
     }
 
     public function create()
@@ -39,15 +57,17 @@ class RoleController extends Controller
             $newRole->role = $role;
             $newRole->save();
 
+            alert()->success('Successfully add data', 'Success')->autoclose(2000);
+
             return redirect('master/role');
         }
         catch(\Exception $e){
-            return $e->getMessage();
-            return redirect()->back()->withStatus('Terjadi kesalahan. : '. $e->getMessage());
+            alert()->error($e->getMessage(), 'Error');
+            return redirect()->back();
         }
         catch(\Illuminate\Database\QueryException $e){
-            return $e->getMessage();
-            return redirect()->back()->withStatus('Terjadi kesalahan pada database : '. $e->getMessage());
+            alert()->error($e->getMessage(), 'Database Error');
+            return redirect()->back();
         }
     }
 
@@ -61,10 +81,12 @@ class RoleController extends Controller
             return view('master.role.edit', $this->param);
         }
         catch(Exception $e){
-            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+            alert()->error($e->getMessage(), 'Error');
+            return redirect()->back();
         }
         catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            alert()->error($e->getMessage(), 'Database Error');
+            return redirect()->back();
         }
     }
 
@@ -78,14 +100,17 @@ class RoleController extends Controller
             $updateRole->role = $req->get('role');
             $updateRole->save();
 
-            return redirect('master/role');
+            alert()->success('Successfully updated data', 'Success')->autoclose(2000);
+            return redirect()->back();
         }
         catch(Exception $e){
-            return redirect()->back()->withError('Terjadi kesalahan : ' . $e->getMessage());
+            alert()->error($e->getMessage(), 'Error');
+            return redirect()->back();
 
         }
         catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()->withError('Terjadi kesalahan pada database : ' . $e->getMessage());
+            alert()->error($e->getMessage(), 'Database Error');
+            return redirect()->back();
         }
 
     }
@@ -97,13 +122,17 @@ class RoleController extends Controller
 
             $role->delete();
 
+            alert()->success('Successfully delete data', 'Success')->autoclose(2000);
+
             return redirect()->back()->withStatus('Data berhasil dihapus.');
         }
         catch(\Exception $e){
-            return redirect()->back()->withError('Terjadi kesalahan : '. $e->getMessage());
+            alert()->error($e->getMessage(), 'Error');
+            return redirect()->back();
         }
         catch(\Illuminate\Database\QueryException $e){
-            return redirect()->back()->withError('Terjadi kesalahan pada database : '. $e->getMessage());
+            alert()->error($e->getMessage(), 'Database Error');
+            return redirect()->back();
         }   
     }
 }

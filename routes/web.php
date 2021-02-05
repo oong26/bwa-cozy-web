@@ -24,9 +24,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::group(['prefix' => 'master'], function () {
         Route::resource('role', 'RoleController', ['names' => [
-            'index' => 'role',
-            // 'edit' => 'role.edit',
-            // 'destroy' => 'role.destroy'
+            'index' => 'role'
         ]]);
         Route::resource('users', 'UsersController', ['names' => [
             'index' => 'users'

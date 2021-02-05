@@ -40,6 +40,7 @@
         {{-- <script src="{{ asset('vendor/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js') }}"></script> --}}
         <script src="{{ asset('vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
         <script src="{{ asset('js/custom.js') }}"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -58,6 +59,11 @@
 
             <!-- Page Content -->
             <main>
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 m-4">
+                    <div class="d-flex justify-content-between">
+                        @include('sweet::alert')
+                    </div>
+                </div>
                 {{ $slot }} 
             </main>
         </div>
