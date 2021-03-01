@@ -7,7 +7,7 @@
 
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 mt-4">
         <div class="d-flex justify-content-between">
-            <a href="{{ route('role') }}">
+            <a href="{{ route('country') }}">
                 <x-jet-button class="secondary mr-2">
                     <i class="fa fa-arrow-left"></i>&nbsp;
                     Back
@@ -20,15 +20,14 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-auto shadow-xl sm:rounded-lg">
                 <div class="px-4 py-3 bg-white sm:p-6">
-                    <form action="{{route('role.update', $role->id)}}" method="post">       
+                    <form action="{{route('country.store')}}" method="post">       
                         @csrf
-                        @method('PUT')
                         <div class="py-2">
                             <div class="col-span-6 sm:col-span-4">
-                                <x-jet-label for="role" class="title-font-size" value="{{ __('Role') }}" />
-                                <x-jet-input name="role" id="role" type="text" class="mt-3 block w-full" value="{{ old('role', $role->role) }}" autocomplete="role" placeholder="Enter a new role" />
-                                @error('role')
-                                <x-jet-input-error for="role" class="mt-2" />
+                                <x-jet-label for="country" class="title-font-size" value="{{ __('Country') }}" />
+                                <x-jet-input name="country" id="country" type="text" class="mt-3 block w-full" autocomplete="country" placeholder="Enter a new country" />
+                                @error('country')
+                                <x-jet-input-error for="country" class="mt-2" />
                                 @enderror
                             </div>
                             <div class="d-flex flex-row-reverse">

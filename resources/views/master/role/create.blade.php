@@ -26,6 +26,9 @@
                             <div class="col-span-6 sm:col-span-4">
                                 <x-jet-label for="role" class="title-font-size" value="{{ __('Role') }}" />
                                 <x-jet-input name="role" id="role" type="text" class="mt-3 block w-full" autocomplete="role" placeholder="Enter a new role" />
+                                @error('role')
+                                <x-jet-input-error for="role" class="mt-2" />
+                                @enderror
                             </div>
                             <div class="d-flex flex-row-reverse">
                                 <div class="col-span-6 sm:col-span-4 mt-3">

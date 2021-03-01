@@ -30,6 +30,7 @@
                             <div class="custom-table-cell">
                                 #
                             </div>
+                            <div class="custom-table-cell"></div>
                             <div class="custom-table-cell">
                                 Fullname
                             </div>
@@ -53,28 +54,36 @@
                                 {{$loop->iteration}}
                             </div>
                             <div class="custom-table-cell">
+                                @if (isset($item->profile_photo_url))
+                                <img src="{{ asset('uploaded_files/profiles/'.$item->profile_photo_url) }}" class="rounded-circle" style="width: 100px !important;height: 100px !important;background-size: revert;">
+                                @endif
+                            </div>
+                            <div class="custom-table-cell align-middle">
                                 {{$item->name}}
                             </div>
-                            <div class="custom-table-cell">
-                                {{$item->email}}
+                            <div class="custom-table-cell align-middle">
+                                <div class="form-group text-center">
+                                    {{$item->email}}
+                                </div>
                             </div>
-                            <div class="custom-table-cell">
+                            <div class="custom-table-cell align-middle">
                                 {{$item->gender}}
                             </div>
-                            <div class="custom-table-cell">
+                            <div class="custom-table-cell align-middle">
                                 {{$item->role}}
                             </div>
-                            <div class="custom-table-cell p-2">
+                            <div class="custom-table-cell p-2 align-middle">
                                 <div class="dropdown dropdown-link">
                                     <button type="button" style="border: 1px solid grey;" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         Choose your option
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a href="{{ route('users.edit', $item->id) }}" class="dropdown-item">{{ __('Edit') }}</a>
-                                        <form action="{{ route('users.destroy', $item->id) }}" method="post">
+                                        <a href="{{ route('change-password', $item) }}" class="dropdown-item">{{ __('Change Password') }}</a>
+                                        <a href="{{ route('users.edit', $item) }}" class="dropdown-item">{{ __('Edit') }}</a>
+                                        <form action="{{ route('users.destroy', $item) }}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <button type="button" class="mr-1 dropdown-item" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
+                                            <button type="button" class="mr-1 dropdown-item" onclick="confirm('{{ __("Are you sure to delete this data?") }}') ? this.parentElement.submit() : ''">
                                                 {{ __('Delete') }}
                                             </button>
                                         </form>  

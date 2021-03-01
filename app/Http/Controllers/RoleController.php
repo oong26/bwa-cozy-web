@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use Exception;
+use Laravel\Jetstream\Role as JetstreamRole;
 
 class RoleController extends Controller
 {
@@ -57,7 +58,7 @@ class RoleController extends Controller
             $newRole->role = $role;
             $newRole->save();
 
-            alert()->success('Successfully add data', 'Success')->autoclose(2000);
+            alert()->success('Successfully added data', 'Success')->autoclose(2000);
 
             return redirect('master/role');
         }
@@ -93,15 +94,17 @@ class RoleController extends Controller
     public function update($id, Request $req)
     {
         $validatedData = $req->validate([
-            'role' => 'required',
+            'role' => 'required|unique:role,role',
         ]);
         try{
             $updateRole = Role::find($id);
-            $updateRole->role = $req->get('role');
-            $updateRole->save();
+            if($req->get('role') != $updateRole->role){
+                $updateRole->role = $req->get('role');
+                $updateRole->save();
+            }
 
             alert()->success('Successfully updated data', 'Success')->autoclose(2000);
-            return redirect()->back();
+            return redirect('master/role/');
         }
         catch(Exception $e){
             alert()->error($e->getMessage(), 'Error');

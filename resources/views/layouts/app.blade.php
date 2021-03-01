@@ -39,8 +39,8 @@
         <script src="{{ asset('vendor/select2-develop/dist/js/select2.min.js') }}"></script>
         {{-- <script src="{{ asset('vendor/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js') }}"></script> --}}
         <script src="{{ asset('vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-        <script src="{{ asset('js/custom.js') }}"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="{{ asset('js/sweetalert.min.js') }}"></script>
+        {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -72,4 +72,25 @@
 
         @livewireScripts
     </body>
+    <script>
+        const tel = document.getElementById('phone');
+  
+        tel.addEventListener('input', function() {
+          let start = this.selectionStart;
+          let end = this.selectionEnd;
+          
+          const current = this.value
+          const corrected = current.replace(/([^+0-9.]+)/gi, '');
+          this.value = corrected;
+          
+          if (corrected.length < current.length) --end;
+          this.setSelectionRange(start, end);
+          
+          if (this.value.length > 13) {
+            var error = document.getElementById('phone_error');
+            error.innerHTML = 'maximum length is 13';
+            this.disabled;
+          }
+        });
+      </script>
 </html>

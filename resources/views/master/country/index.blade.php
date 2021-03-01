@@ -7,7 +7,9 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 m-4">
         <div class="d-flex justify-content-between">
-            <x-jet-input class="w-50 px-3 py-2 ml-2" placeholder="Find in here..."></x-jet-input>
+            <form action="{{ route('country') }}" method="get">
+                <x-jet-input class="w-100 px-3 py-2 ml-2" name="s" value="{{ Request::get('s') }}" placeholder="Find in here..."/>
+            </form>
             <a href="{{ route('country.create') }}">
                 <x-jet-button class="primary mr-2">
                     <i class="fa fa-plus"></i>&nbsp;
@@ -35,7 +37,7 @@
                                 Options
                             </div>
                         </div>
-
+                        @if (sizeOf($country) > 0)
                         @foreach ($country as $item)
                         <div class="custom-table-row">
                             <div class="custom-table-cell">
@@ -54,7 +56,7 @@
                                         <form action="{{ route('country.destroy', $item->id) }}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <button type="button" class="mr-1 dropdown-item" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
+                                            <button type="button" class="mr-1 dropdown-item" onclick="confirm('{{ __("Are you sure to delete this data?") }}') ? this.parentElement.submit() : ''">
                                                 {{ __('Delete') }}
                                             </button>
                                         </form>  
@@ -63,10 +65,14 @@
                             </div>
                         </div>
                         @endforeach
-
+                        @else
+                            <div class="pl-2 pt-2">there's no data in here.</div>
+                        @endif
                     </div>
                     {{-- End Table --}}
-                    {{-- {{$role->appends(Request::all())->links('vendor.pagination.custom')}} --}}
+                    <div class="py-2 px-3">
+                        {{ $country->links() }}
+                    </div>
                 </div>
             </div>
         </div>

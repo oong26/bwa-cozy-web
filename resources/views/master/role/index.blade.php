@@ -11,7 +11,7 @@
                 <x-jet-input class="w-100 px-3 py-2 ml-2" name="s" value="{{ Request::get('s') }}" placeholder="Find in here..."/>
             </form>
             <a href="{{ route('role.create') }}">
-                <x-jet-button class="secondary mr-2">
+                <x-jet-button class="primary mr-2">
                     <i class="fa fa-plus"></i>&nbsp;
                     Add
                 </x-jet-button>

@@ -26,9 +26,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::resource('role', 'RoleController', ['names' => [
             'index' => 'role'
         ]]);
-        Route::resource('users', 'UsersController', ['names' => [
-            'index' => 'users'
-        ]]);
+        Route::group(['prefix' => 'users'], function(){
+            Route::resource('users', 'UsersController', ['names' => [
+                'index' => 'users'
+            ]]);
+            Route::get('change-password/{id}', 'UsersController@changePassword')->name('change-password');
+            Route::put('update-password/{id}', 'UsersController@updatePassword')->name('update-password');
+        });
         Route::resource('city', 'CityController', ['names' => [
             'index' => 'city'
         ]]);

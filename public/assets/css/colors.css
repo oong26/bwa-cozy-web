@@ -14,7 +14,19 @@
     background-color: #FF5B5B !important;   
     background: #FF5B5B !important;
 }
+.disabled{
+    background-color: #DDDDDD !important;   
+    background: #DDDDDD !important;
+}
 /* Font Size */
 .title-font-size{
     font-size: medium;
 }
+/* End Font Size */
+/* Font Style */
+.error-text{
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+}
+/* End Font Style */

@@ -1,4 +1,4 @@
-<<x-app-layout :pagetitle="$title">
+<x-app-layout :pagetitle="$title">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __($title) }}
@@ -72,7 +72,7 @@
                                         <form action="{{ route('boarding-house.destroy', $item->id) }}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <button type="button" class="mr-1 dropdown-item" onclick="confirm('{{ __("Apakah anda yakin ingin menghapus?") }}') ? this.parentElement.submit() : ''">
+                                            <button type="button" class="mr-1 dropdown-item" onclick="confirm('{{ __("Are you sure to delete this data?") }}') ? this.parentElement.submit() : ''">
                                                 {{ __('Delete') }}
                                             </button>
                                         </form>  
